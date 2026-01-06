@@ -1,69 +1,77 @@
-import { useState, useEffect } from 'react';
-import { modules } from '@/data/modules';
-
-const PROGRESS_KEY = 'utamv_master360_progress';
-
-interface CourseProgress {
-  completedModules: number[];
-}
+import { useState, useEffect, useCallback } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { modules, TOTAL_MODULES } from '@/data/modules';
+import { useAuth } from './useAuth';
 
 export function useCourseProgress() {
-  const [progress, setProgress] = useState<CourseProgress>({ completedModules: [] });
+  const { user } = useAuth();
+  const [completedModules, setCompletedModules] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const loadProgress = useCallback(async () => {
+    if (!user) {
+      setCompletedModules([]);
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('course_progress')
+        .select('module_id')
+        .eq('user_id', user.id);
+
+      if (error) throw error;
+      
+      setCompletedModules(data?.map(p => p.module_id) ?? []);
+    } catch (error) {
+      console.error('Error loading progress:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     loadProgress();
-  }, []);
+  }, [loadProgress]);
 
-  const loadProgress = () => {
+  const markModuleCompleted = async (moduleId: number) => {
+    if (!user || completedModules.includes(moduleId)) return;
+
     try {
-      const raw = localStorage.getItem(PROGRESS_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        setProgress({
-          completedModules: Array.isArray(parsed.completedModules) ? parsed.completedModules : []
-        });
-      }
-    } catch {
-      // ignore
+      const { error } = await supabase
+        .from('course_progress')
+        .insert({ user_id: user.id, module_id: moduleId });
+
+      if (error && error.code !== '23505') throw error; // Ignore duplicate errors
+      
+      setCompletedModules(prev => [...prev, moduleId]);
+    } catch (error) {
+      console.error('Error marking module completed:', error);
     }
-  };
-
-  const saveProgress = (newProgress: CourseProgress) => {
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(newProgress));
-    setProgress(newProgress);
-  };
-
-  const markModuleCompleted = (moduleId: number) => {
-    if (!progress.completedModules.includes(moduleId)) {
-      const newProgress = {
-        completedModules: [...progress.completedModules, moduleId]
-      };
-      saveProgress(newProgress);
-    }
-  };
-
-  const clearProgress = () => {
-    localStorage.removeItem(PROGRESS_KEY);
-    setProgress({ completedModules: [] });
   };
 
   const isModuleCompleted = (moduleId: number) => {
-    return progress.completedModules.includes(moduleId);
+    return completedModules.includes(moduleId);
   };
 
   const getProgressPercentage = () => {
-    const total = modules.length;
-    const completed = progress.completedModules.length;
-    return total === 0 ? 0 : Math.round((completed / total) * 100);
+    return TOTAL_MODULES === 0 ? 0 : Math.round((completedModules.length / TOTAL_MODULES) * 100);
+  };
+
+  const isAllModulesCompleted = () => {
+    return completedModules.length >= TOTAL_MODULES;
   };
 
   return {
-    progress,
+    completedModules,
+    isLoading,
     markModuleCompleted,
-    clearProgress,
     isModuleCompleted,
     getProgressPercentage,
-    completedCount: progress.completedModules.length,
-    totalModules: modules.length
+    isAllModulesCompleted,
+    completedCount: completedModules.length,
+    totalModules: TOTAL_MODULES,
+    refreshProgress: loadProgress,
   };
 }
