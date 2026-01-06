@@ -1,4 +1,8 @@
 import { Module } from '@/data/modules';
+import digitalMarketingImg from '@/assets/digital-marketing.jpg';
+import socialMediaImg from '@/assets/social-media.jpg';
+import analyticsImg from '@/assets/analytics.jpg';
+import automationImg from '@/assets/automation.jpg';
 
 interface ModuleContentProps {
   module: Module;
@@ -12,6 +16,12 @@ export function ModuleContent({ module }: ModuleContentProps) {
       return <Module2Content />;
     case 3:
       return <Module3Content />;
+    case 4:
+      return <Module4Content />;
+    case 5:
+      return <Module5Content />;
+    case 6:
+      return <Module6Content />;
     default:
       return <div className="text-muted-foreground">Contenido no disponible</div>;
   }
@@ -32,6 +42,12 @@ function Module1Content() {
           Este módulo te ayuda a definir quién eres en el mercado y qué señal quieres enviar.
         </p>
       </header>
+
+      <img 
+        src={digitalMarketingImg} 
+        alt="Digital Marketing" 
+        className="w-full h-48 object-cover rounded-2xl"
+      />
 
       <section className="space-y-3">
         <h2 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
@@ -54,24 +70,17 @@ function Module1Content() {
             <li>· Marketer clásico → empuja ofertas, pero sin una identidad clara.</li>
             <li>· Arquitecto de autoridad IA → diseña señales que humanos e IAs reconocen como expertise.</li>
           </ul>
-          <p className="text-[11px] text-muted-foreground/70">
-            La IA amplifica lo que ya existe. Si tu mensaje es confuso, la IA amplifica confusión.
-            Si es claro, amplifica claridad.
-          </p>
         </div>
 
         <div className="space-y-3">
           <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
-            Ejercicio práctico (hazlo ahora)
+            Ejercicio práctico
           </h3>
           <ol className="text-xs text-muted-foreground space-y-2 list-decimal list-inside">
             <li>Completa esta frase: "Ayudo a ______ a resolver ______ para lograr ______".</li>
-            <li>Escribe 3 problemas concretos que vive hoy tu cliente ideal (no genéricos).</li>
+            <li>Escribe 3 problemas concretos que vive hoy tu cliente ideal.</li>
             <li>Escribe 3 resultados medibles que puede obtener contigo.</li>
           </ol>
-          <p className="text-[11px] text-muted-foreground/70">
-            Guarda estas frases en tu cuaderno o herramienta de notas. Las usarás en los próximos módulos.
-          </p>
         </div>
       </section>
 
@@ -81,26 +90,13 @@ function Module1Content() {
         </h3>
         <ul className="text-xs text-foreground/80 space-y-2">
           <li className="flex items-center gap-2">
-            <span className="text-success">☑</span> Puedo decir en una frase clara a quién ayudo y con qué.
+            <span className="text-success">☑</span> Puedo decir en una frase clara a quién ayudo.
           </li>
           <li className="flex items-center gap-2">
-            <span className="text-success">☑</span> Entiendo que mi objetivo no es publicar más, sino ser referencia clara.
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="text-success">☑</span> Acepto que la IA es un amplificador, no un sustituto.
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="text-success">☑</span> Estoy dispuesto a documentar mi experiencia con ejemplos reales.
+            <span className="text-success">☑</span> Entiendo que la IA es un amplificador, no un sustituto.
           </li>
         </ul>
       </section>
-
-      <footer className="pt-4 border-t border-border mt-4">
-        <p className="text-[11px] text-muted-foreground">
-          Cuando termines este módulo, pasa al Módulo 02: Arquitectura GEO Pro,
-          donde verás cómo convertir estas ideas en un mapa de páginas y contenidos.
-        </p>
-      </footer>
     </article>
   );
 }
@@ -139,7 +135,7 @@ function Module2Content() {
           <ul className="text-xs text-muted-foreground space-y-2">
             <li>· <span className="text-foreground font-medium">Contenido estructurado:</span> Usa headers, listas y datos claros.</li>
             <li>· <span className="text-foreground font-medium">Citas y fuentes:</span> Enlaza a estudios y datos verificables.</li>
-            <li>· <span className="text-foreground font-medium">Formato FAQ:</span> Responde preguntas directas de tu audiencia.</li>
+            <li>· <span className="text-foreground font-medium">Formato FAQ:</span> Responde preguntas directas.</li>
             <li>· <span className="text-foreground font-medium">Schema markup:</span> Ayuda a las IAs a entender tu contenido.</li>
           </ul>
         </div>
@@ -149,7 +145,7 @@ function Module2Content() {
             Ejercicio: Tu mapa GEO
           </h3>
           <ol className="text-xs text-muted-foreground space-y-2 list-decimal list-inside">
-            <li>Lista 10 preguntas que tu cliente ideal busca en Google.</li>
+            <li>Lista 10 preguntas que tu cliente busca en Google.</li>
             <li>Clasifícalas: informativas, comparativas o transaccionales.</li>
             <li>Crea un documento con la respuesta ideal para cada una.</li>
           </ol>
@@ -175,12 +171,6 @@ function Module2Content() {
           </div>
         </div>
       </section>
-
-      <footer className="pt-4 border-t border-border mt-4">
-        <p className="text-[11px] text-muted-foreground">
-          En el Módulo 03 aplicarás estos conceptos para crear una landing de alta conversión.
-        </p>
-      </footer>
     </article>
   );
 }
@@ -206,41 +196,23 @@ function Module3Content() {
           Anatomía de una landing efectiva
         </h2>
         <div className="space-y-2">
-          <div className="flex items-center gap-3 text-sm">
-            <span className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">1</span>
-            <div>
-              <span className="font-medium text-foreground">Hero con promesa clara</span>
-              <span className="text-muted-foreground"> - Qué obtendrán y cómo</span>
+          {[
+            { num: 1, title: 'Hero con promesa clara', desc: 'Qué obtendrán y cómo' },
+            { num: 2, title: 'Problema y agitación', desc: 'Identifica su dolor' },
+            { num: 3, title: 'Tu solución', desc: 'Presenta tu metodología' },
+            { num: 4, title: 'Prueba social', desc: 'Testimonios y casos' },
+            { num: 5, title: 'CTA irresistible', desc: 'Acción clara con urgencia' },
+          ].map((item) => (
+            <div key={item.num} className="flex items-center gap-3 text-sm">
+              <span className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
+                {item.num}
+              </span>
+              <div>
+                <span className="font-medium text-foreground">{item.title}</span>
+                <span className="text-muted-foreground"> - {item.desc}</span>
+              </div>
             </div>
-          </div>
-          <div className="flex items-center gap-3 text-sm">
-            <span className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">2</span>
-            <div>
-              <span className="font-medium text-foreground">Problema y agitación</span>
-              <span className="text-muted-foreground"> - Identifica su dolor</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 text-sm">
-            <span className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">3</span>
-            <div>
-              <span className="font-medium text-foreground">Tu solución</span>
-              <span className="text-muted-foreground"> - Presenta tu metodología</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 text-sm">
-            <span className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">4</span>
-            <div>
-              <span className="font-medium text-foreground">Prueba social</span>
-              <span className="text-muted-foreground"> - Testimonios y casos</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 text-sm">
-            <span className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-xs">5</span>
-            <div>
-              <span className="font-medium text-foreground">CTA irresistible</span>
-              <span className="text-muted-foreground"> - Acción clara con urgencia</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -252,7 +224,68 @@ function Module3Content() {
           <li>Escribe tu headline principal (máx. 10 palabras).</li>
           <li>Lista 3 beneficios con resultados medibles.</li>
           <li>Escribe tu CTA con verbo de acción + beneficio.</li>
-          <li>Identifica 2 objeciones y cómo las respondes.</li>
+        </ol>
+      </section>
+    </article>
+  );
+}
+
+function Module4Content() {
+  return (
+    <article className="space-y-6 animate-fade-in">
+      <header>
+        <p className="text-[11px] font-bold tracking-[0.3em] uppercase text-primary">
+          Módulo 04 · Automatización
+        </p>
+        <h1 className="mt-2 text-2xl md:text-3xl font-black text-foreground">
+          Email Marketing con IA
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Crea secuencias de email automatizadas que nutren leads y convierten usando 
+          <span className="font-semibold text-foreground"> Inteligencia Artificial para personalización masiva</span>.
+        </p>
+      </header>
+
+      <img 
+        src={automationImg} 
+        alt="Email Automation" 
+        className="w-full h-48 object-cover rounded-2xl"
+      />
+
+      <section className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-3">
+          <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
+            Tipos de secuencias
+          </h3>
+          <ul className="text-xs text-muted-foreground space-y-2">
+            <li>· <span className="text-foreground font-medium">Bienvenida:</span> 3-5 emails introductorios.</li>
+            <li>· <span className="text-foreground font-medium">Nurturing:</span> Educar y generar confianza.</li>
+            <li>· <span className="text-foreground font-medium">Venta:</span> Secuencia de lanzamiento.</li>
+            <li>· <span className="text-foreground font-medium">Re-engagement:</span> Recuperar leads fríos.</li>
+          </ul>
+        </div>
+
+        <div className="space-y-3">
+          <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
+            Prompts para IA
+          </h3>
+          <ul className="text-xs text-muted-foreground space-y-2">
+            <li>· "Escribe un subject line con curiosidad para [tema]"</li>
+            <li>· "Crea un email de bienvenida con historia personal"</li>
+            <li>· "Genera 5 variantes de CTA para [oferta]"</li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-border bg-secondary/30 p-4">
+        <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80 mb-3">
+          Ejercicio: Tu secuencia de bienvenida
+        </h3>
+        <ol className="text-xs text-muted-foreground space-y-2 list-decimal list-inside">
+          <li>Define el objetivo de tu secuencia (venta, engagement, cita).</li>
+          <li>Escribe el outline de 5 emails con tema principal.</li>
+          <li>Usa IA para generar el primer borrador de cada email.</li>
+          <li>Personaliza con tu voz y ejemplos reales.</li>
         </ol>
       </section>
 
@@ -261,7 +294,160 @@ function Module3Content() {
           Herramientas recomendadas
         </h3>
         <div className="flex flex-wrap gap-2">
-          {['Figma', 'Webflow', 'Framer', 'Carrd', 'Lovable'].map((tool) => (
+          {['Mailchimp', 'ConvertKit', 'ActiveCampaign', 'Beehiiv', 'Resend'].map((tool) => (
+            <span key={tool} className="px-3 py-1 rounded-full bg-muted text-xs text-muted-foreground border border-border">
+              {tool}
+            </span>
+          ))}
+        </div>
+      </section>
+    </article>
+  );
+}
+
+function Module5Content() {
+  return (
+    <article className="space-y-6 animate-fade-in">
+      <header>
+        <p className="text-[11px] font-bold tracking-[0.3em] uppercase text-primary">
+          Módulo 05 · Social Media
+        </p>
+        <h1 className="mt-2 text-2xl md:text-3xl font-black text-foreground">
+          Automatización de Redes Sociales
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Multiplica tu presencia en redes sin multiplicar tu tiempo usando 
+          <span className="font-semibold text-foreground"> herramientas de automatización inteligente</span>.
+        </p>
+      </header>
+
+      <img 
+        src={socialMediaImg} 
+        alt="Social Media Automation" 
+        className="w-full h-48 object-cover rounded-2xl"
+      />
+
+      <section className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-3">
+          <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
+            Pilares de automatización
+          </h3>
+          <ul className="text-xs text-muted-foreground space-y-2">
+            <li>· <span className="text-foreground font-medium">Programación:</span> Publica en horarios óptimos.</li>
+            <li>· <span className="text-foreground font-medium">Repurposing:</span> Un contenido → múltiples formatos.</li>
+            <li>· <span className="text-foreground font-medium">Engagement:</span> Respuestas automatizadas inteligentes.</li>
+            <li>· <span className="text-foreground font-medium">Analytics:</span> Métricas en tiempo real.</li>
+          </ul>
+        </div>
+
+        <div className="space-y-3">
+          <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
+            Framework de contenido semanal
+          </h3>
+          <ul className="text-xs text-muted-foreground space-y-2">
+            <li>📚 <span className="text-foreground font-medium">Lunes:</span> Educativo</li>
+            <li>💡 <span className="text-foreground font-medium">Miércoles:</span> Tips rápidos</li>
+            <li>🎯 <span className="text-foreground font-medium">Viernes:</span> CTA / Oferta</li>
+            <li>📖 <span className="text-foreground font-medium">Domingo:</span> Historia personal</li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-border bg-secondary/30 p-4">
+        <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80 mb-3">
+          Ejercicio: Tu sistema de contenido
+        </h3>
+        <ol className="text-xs text-muted-foreground space-y-2 list-decimal list-inside">
+          <li>Elige 3 plataformas principales para tu audiencia.</li>
+          <li>Crea un banco de 20 ideas de contenido con IA.</li>
+          <li>Programa 2 semanas de contenido en una sola sesión.</li>
+          <li>Analiza resultados y ajusta el calendario.</li>
+        </ol>
+      </section>
+
+      <section className="space-y-3">
+        <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
+          Herramientas recomendadas
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {['Buffer', 'Hootsuite', 'Later', 'Metricool', 'Canva', 'CapCut'].map((tool) => (
+            <span key={tool} className="px-3 py-1 rounded-full bg-muted text-xs text-muted-foreground border border-border">
+              {tool}
+            </span>
+          ))}
+        </div>
+      </section>
+    </article>
+  );
+}
+
+function Module6Content() {
+  return (
+    <article className="space-y-6 animate-fade-in">
+      <header>
+        <p className="text-[11px] font-bold tracking-[0.3em] uppercase text-primary">
+          Módulo 06 · Análisis
+        </p>
+        <h1 className="mt-2 text-2xl md:text-3xl font-black text-foreground">
+          Analytics y Métricas
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Mide, analiza y optimiza cada aspecto de tu estrategia digital con 
+          <span className="font-semibold text-foreground"> datos accionables y dashboards inteligentes</span>.
+        </p>
+      </header>
+
+      <img 
+        src={analyticsImg} 
+        alt="Analytics Dashboard" 
+        className="w-full h-48 object-cover rounded-2xl"
+      />
+
+      <section className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-3">
+          <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
+            Métricas clave (KPIs)
+          </h3>
+          <ul className="text-xs text-muted-foreground space-y-2">
+            <li>· <span className="text-foreground font-medium">CAC:</span> Costo de adquisición de cliente.</li>
+            <li>· <span className="text-foreground font-medium">LTV:</span> Valor de vida del cliente.</li>
+            <li>· <span className="text-foreground font-medium">CVR:</span> Tasa de conversión.</li>
+            <li>· <span className="text-foreground font-medium">ROAS:</span> Retorno de inversión publicitaria.</li>
+          </ul>
+        </div>
+
+        <div className="space-y-3">
+          <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
+            El framework AARRR
+          </h3>
+          <ul className="text-xs text-muted-foreground space-y-2">
+            <li>🎯 <span className="text-foreground font-medium">Acquisition:</span> ¿De dónde vienen?</li>
+            <li>✅ <span className="text-foreground font-medium">Activation:</span> ¿Primera acción clave?</li>
+            <li>🔄 <span className="text-foreground font-medium">Retention:</span> ¿Vuelven?</li>
+            <li>💬 <span className="text-foreground font-medium">Referral:</span> ¿Recomiendan?</li>
+            <li>💰 <span className="text-foreground font-medium">Revenue:</span> ¿Cuánto generan?</li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-border bg-secondary/30 p-4">
+        <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80 mb-3">
+          Ejercicio: Tu dashboard mínimo
+        </h3>
+        <ol className="text-xs text-muted-foreground space-y-2 list-decimal list-inside">
+          <li>Define 5 métricas críticas para tu negocio.</li>
+          <li>Configura tracking en Google Analytics 4.</li>
+          <li>Crea un reporte semanal automatizado.</li>
+          <li>Establece metas mensuales para cada KPI.</li>
+        </ol>
+      </section>
+
+      <section className="space-y-3">
+        <h3 className="text-xs font-bold tracking-[0.25em] uppercase text-foreground/80">
+          Herramientas recomendadas
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {['Google Analytics', 'Hotjar', 'Mixpanel', 'Looker Studio', 'Amplitude'].map((tool) => (
             <span key={tool} className="px-3 py-1 rounded-full bg-muted text-xs text-muted-foreground border border-border">
               {tool}
             </span>
@@ -271,10 +457,10 @@ function Module3Content() {
 
       <footer className="pt-4 border-t border-border mt-4 text-center">
         <p className="text-sm font-semibold text-success">
-          🎉 ¡Felicidades! Has completado el curso Master 360.
+          🎉 ¡Felicidades! Has completado el curso Master 360 Elite.
         </p>
         <p className="text-[11px] text-muted-foreground mt-2">
-          Aplica lo aprendido y comparte tus resultados con la comunidad.
+          Ahora puedes generar tu certificado de finalización.
         </p>
       </footer>
     </article>

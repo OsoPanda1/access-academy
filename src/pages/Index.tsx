@@ -1,108 +1,186 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUserProfile } from '@/hooks/useUserProfile';
+import { ArrowRight, Award, BookOpen, CheckCircle2, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import heroImage from '@/assets/hero-tamv.jpg';
+import digitalMarketingImg from '@/assets/digital-marketing.jpg';
 
 export default function Index() {
-  const { profile, saveProfile, isAuthenticated } = useUserProfile();
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const { isAuthenticated, isLoading } = useAuth();
 
-  useEffect(() => {
-    if (profile) {
-      setName(profile.username || '');
-      setEmail(profile.email || '');
+  const handleCTA = () => {
+    if (isAuthenticated) {
+      navigate('/curso');
+    } else {
+      navigate('/auth');
     }
-  }, [profile]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name.trim()) return;
-
-    saveProfile({
-      username: name.trim(),
-      email: email.trim()
-    });
-
-    navigate('/curso');
   };
 
   return (
-    <div className="min-h-screen bg-radial-dark flex items-center justify-center px-4">
-      <main className="max-w-md w-full glass-card rounded-3xl p-8 shadow-2xl glow-primary animate-fade-in">
-        <header className="mb-8 text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/20 border border-primary/40 mb-3">
-            <span className="text-lg font-black text-primary italic">U</span>
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center">
+        {/* Background */}
+        <div className="absolute inset-0 -z-10">
+          <img 
+            src={heroImage} 
+            alt="TAMV 2026" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/80" />
+        </div>
+
+        <div className="max-w-6xl mx-auto px-6 md:px-10 py-20">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-6">
+              <Sparkles className="w-4 h-4 text-primary" />
+              <span className="text-xs font-bold tracking-wider text-primary uppercase">
+                Curso Premium 2026
+              </span>
+            </div>
+
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight text-foreground mb-6">
+              Master 360 Elite
+              <span className="block text-primary">Marketing Digital con IA</span>
+            </h1>
+
+            <p className="text-lg text-muted-foreground mb-8 max-w-lg">
+              Construye tu autoridad de marca usando Inteligencia Artificial de forma estratégica. 
+              6 módulos prácticos para dominar el marketing digital moderno.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <Button onClick={handleCTA} size="lg" className="gap-2 text-base">
+                {isLoading ? 'Cargando...' : isAuthenticated ? 'Ir al curso' : 'Comenzar ahora'}
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+              <Button variant="outline" size="lg" onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}>
+                Ver contenido
+              </Button>
+            </div>
+
+            {/* Stats */}
+            <div className="flex gap-8">
+              <div>
+                <div className="text-3xl font-bold text-foreground">6</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wider">Módulos</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-foreground">∞</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wider">Acceso</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-foreground">🎓</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wider">Certificado</div>
+              </div>
+            </div>
           </div>
-          <h1 className="text-xl font-black tracking-[0.25em] uppercase text-foreground">
-            UTAMV 360
-          </h1>
-          <p className="mt-2 text-xs text-muted-foreground">
-            Acceso exclusivo al entrenamiento <span className="font-semibold text-primary">Master 360 Elite</span>.
-          </p>
-        </header>
+        </div>
+      </section>
 
-        <section className="space-y-4 text-sm text-muted-foreground">
-          <p>
-            Si estás viendo esta pantalla, significa que ya realizaste el pago y tienes acceso a la versión en desarrollo del curso.
-          </p>
-          <p className="text-xs text-muted-foreground/70">
-            Tus avances se guardarán en este navegador usando almacenamiento local.
-            Si borras los datos de navegación, tu progreso se reinicia.
-          </p>
-        </section>
-
-        <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-          <div>
-            <label
-              htmlFor="access-name"
-              className="block text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-1"
-            >
-              NOMBRE O ALIAS
-            </label>
-            <input
-              id="access-name"
-              type="text"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-xl border border-border bg-background/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-              placeholder="Como quieres aparecer en el curso"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="access-email"
-              className="block text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-1"
-            >
-              CORREO (OPCIONAL)
-            </label>
-            <input
-              id="access-email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border border-border bg-background/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-              placeholder="ejemplo@tu-proyecto.com"
-            />
-            <p className="mt-1 text-[11px] text-muted-foreground/70">
-              Solo se usa para personalizar tu experiencia. No se envía a ningún servidor en esta versión.
+      {/* Features Section */}
+      <section id="features" className="py-20 bg-muted/30">
+        <div className="max-w-6xl mx-auto px-6 md:px-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
+              Lo que aprenderás
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Un programa completo diseñado para llevarte de cero a experto en marketing digital con IA
             </p>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-black tracking-[0.3em] uppercase rounded-full py-3 mt-4 transition-all transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30"
-          >
-            {isAuthenticated ? 'CONTINUAR AL CURSO' : 'ENTRAR AL CURSO'}
-          </button>
-        </form>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { icon: '🧠', title: 'Mindset IA', desc: 'Piensa como arquitecto de autoridad digital' },
+              { icon: '🎯', title: 'GEO Pro', desc: 'Optimización para motores generativos' },
+              { icon: '🚀', title: 'Landing Pages', desc: 'Páginas que convierten visitantes en clientes' },
+              { icon: '📧', title: 'Email Marketing', desc: 'Secuencias automatizadas con IA' },
+              { icon: '📱', title: 'Redes Sociales', desc: 'Automatización y multiplicación de presencia' },
+              { icon: '📊', title: 'Analytics', desc: 'Métricas y optimización basada en datos' },
+            ].map((feature, i) => (
+              <div key={i} className="glass-card rounded-2xl p-6 hover:border-primary/50 transition-all">
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-lg font-bold text-foreground mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        <footer className="mt-6 text-[10px] text-center text-muted-foreground/70">
-          UTAMV Protocol · Curso Master 360 Elite · Versión demo local
-        </footer>
-      </main>
+      {/* Benefits Section */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-6 md:px-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6">
+                ¿Por qué este curso?
+              </h2>
+              <ul className="space-y-4">
+                {[
+                  'Contenido actualizado 2026 con las últimas estrategias de IA',
+                  'Ejercicios prácticos para aplicar en tu negocio real',
+                  'Certificado de finalización para tu portafolio',
+                  'Acceso de por vida al contenido y actualizaciones',
+                  'Comunidad exclusiva de emprendedores digitales',
+                ].map((benefit, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="relative">
+              <img 
+                src={digitalMarketingImg} 
+                alt="Digital Marketing" 
+                className="rounded-2xl shadow-2xl"
+              />
+              <div className="absolute -bottom-6 -right-6 glass-card rounded-2xl p-4 flex items-center gap-3">
+                <Award className="w-10 h-10 text-primary" />
+                <div>
+                  <div className="font-bold text-foreground">Certificado</div>
+                  <div className="text-xs text-muted-foreground">Al completar el curso</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-b from-primary/10 to-background">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
+            ¿Listo para transformar tu marketing?
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            Únete a cientos de emprendedores que ya están construyendo su autoridad digital con IA.
+          </p>
+          <Button onClick={handleCTA} size="lg" className="gap-2 text-base">
+            <BookOpen className="w-5 h-5" />
+            {isAuthenticated ? 'Continuar aprendiendo' : 'Acceder al curso'}
+          </Button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 border-t border-border">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-xs font-black italic text-primary-foreground">
+              U
+            </div>
+            <span className="font-bold text-foreground">UTAMV 360</span>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            TAMV Online 2026 · Somos LATAM · Master 360 Elite
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
