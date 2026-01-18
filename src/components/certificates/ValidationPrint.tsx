@@ -48,13 +48,16 @@ const ValidationPrint: React.FC<ValidationPrintProps> = ({ result }) => {
       doc.text(`Mensaje: ${result.message}`, 20, 90);
     }
 
-    // Sello institucional
-    doc.setFontSize(10);
-    doc.text("Firma digital quantum UTAMV", 105, 270, { align: "center" });
-    doc.text("Holograma institucional", 105, 280, { align: "center" });
-
-    // Descargar PDF
-    doc.save("UTAMV-Validacion-Certificado.pdf");
+    // Sello institucional UTAMV
+    const hologram = new Image();
+    hologram.src = "/assets/hologram-utamv.png"; // archivo en public/assets
+    hologram.onload = () => {
+      doc.addImage(hologram, "PNG", 80, 200, 50, 50); // posición y tamaño del holograma
+      doc.setFontSize(10);
+      doc.text("Firma digital quantum UTAMV", 105, 270, { align: "center" });
+      doc.text("Holograma institucional", 105, 280, { align: "center" });
+      doc.save("UTAMV-Validacion-Certificado.pdf");
+    };
   };
 
   return (
