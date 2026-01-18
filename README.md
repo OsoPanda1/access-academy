@@ -1,6 +1,6 @@
 ## Access Academy
 
-## bIENVENIDO A **Access Academy** es una **webapp educativa** donde se imparte un curso de **Marketing Digital guiado con Inteligencia Artificial**.  
+## Bienvenido a  **Access Academy** es una **webapp educativa** donde se imparte un curso de **Marketing Digital guiado con Inteligencia Artificial**.  
 Su propósito es que los usuarios aprendan a generar campañas de marketing con la mejor calidad, utilizando **metadatos actuales** como **SEO**, **Geo-targeting** y optimización en las respuestas de la IA.
 
 *Estas cansado de que aparezcan supuestos expertos que te prometen ventas, visibilidad y mas clientes. Y tiempo despues te das cuenta que un solo cliente no llego a tu negocio tras gastar cantitades ridiculas en marketing defectuoso*
