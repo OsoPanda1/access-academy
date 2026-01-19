@@ -14,6 +14,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      certificate_registry: {
+        Row: {
+          certificate_hash: string
+          certificate_id: string
+          course_name: string
+          id: string
+          issued_at: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          certificate_hash: string
+          certificate_id: string
+          course_name?: string
+          id?: string
+          issued_at?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          certificate_hash?: string
+          certificate_id?: string
+          course_name?: string
+          id?: string
+          issued_at?: string | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "certificate_registry_certificate_id_fkey"
+            columns: ["certificate_id"]
+            isOneToOne: false
+            referencedRelation: "certificates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       certificates: {
         Row: {
           certificate_number: string
@@ -55,6 +93,63 @@ export type Database = {
           completed_at?: string
           id?: string
           module_id?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      exam_questions: {
+        Row: {
+          correct_option: number
+          created_at: string | null
+          difficulty: string | null
+          id: string
+          options: string[]
+          question: string
+          topic: string
+        }
+        Insert: {
+          correct_option: number
+          created_at?: string | null
+          difficulty?: string | null
+          id?: string
+          options: string[]
+          question: string
+          topic: string
+        }
+        Update: {
+          correct_option?: number
+          created_at?: string | null
+          difficulty?: string | null
+          id?: string
+          options?: string[]
+          question?: string
+          topic?: string
+        }
+        Relationships: []
+      }
+      exam_results: {
+        Row: {
+          completed_at: string | null
+          id: string
+          passed: boolean
+          score: number
+          total_questions: number
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          id?: string
+          passed: boolean
+          score: number
+          total_questions: number
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          id?: string
+          passed?: boolean
+          score?: number
+          total_questions?: number
           user_id?: string
         }
         Relationships: []
